@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 namespace BankOperations.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class TransactionsController : ControllerBase
     {
         private readonly IPublishEndpoint _publishEndpoint;
@@ -19,22 +18,22 @@ namespace BankOperations.API.Controllers
             _logger = logger;
         }
 
-        public void Get()
-        {
-            var accountId = Guid.NewGuid();
-            var userId = Guid.NewGuid();
+        //public void Get()
+        //{
+        //    var accountId = Guid.NewGuid();
+        //    var userId = Guid.NewGuid();
 
-            //_publishEndpoint.Publish<TransactionGenerated>(Newtonsoft.Json.JsonConvert.SerializeObject(new TransactionGenerated()));
+        //    //_publishEndpoint.Publish<TransactionGenerated>(Newtonsoft.Json.JsonConvert.SerializeObject(new TransactionGenerated()));
 
-            _publishEndpoint.Publish<TransactionGenerated>(new TransactionGenerated
-            {
-                AccountId = accountId,
-                Amount = 50000,
-                CreatedDate = DateTime.Now,
-                TransactionType = Enumeration.TransactionType.Deposit,
-                UserId = userId
-            });
-        }
+        //    _publishEndpoint.Publish<TransactionGenerated>(new TransactionGenerated
+        //    {
+        //        AccountId = accountId,
+        //        Amount = 50000,
+        //        CreatedDate = DateTime.Now,
+        //        TransactionType = Enumeration.TransactionType.Deposit,
+        //        UserId = userId
+        //    });
+        //}
 
         [HttpPost]
         [Route("api/transactions/deposit")]

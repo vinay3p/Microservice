@@ -1096,11 +1096,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\POCs\\MSAssignment\\BankOperations\\BankOperations.API\\BankOperations.API\\BankOperations.API.csproj",
+      "projectUniqueName": "D:\\POCs\\MSAssignment\\Microservice\\BankOperations\\BankOperations.API\\BankOperations.API\\BankOperations.API.csproj",
       "projectName": "BankOperations.API",
-      "projectPath": "D:\\POCs\\MSAssignment\\BankOperations\\BankOperations.API\\BankOperations.API\\BankOperations.API.csproj",
+      "projectPath": "D:\\POCs\\MSAssignment\\Microservice\\BankOperations\\BankOperations.API\\BankOperations.API\\BankOperations.API.csproj",
       "packagesPath": "C:\\Users\\vinay.singh\\.nuget\\packages\\",
-      "outputPath": "D:\\POCs\\MSAssignment\\BankOperations\\BankOperations.API\\BankOperations.API\\obj\\",
+      "outputPath": "D:\\POCs\\MSAssignment\\Microservice\\BankOperations\\BankOperations.API\\BankOperations.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
