@@ -1,4 +1,6 @@
-﻿namespace UserService.Api.JWTWebAuthentication
+﻿using UserService.Models;
+
+namespace UserService.Api.JWTWebAuthentication
 {
     public interface IJWTManagerRepository
     {

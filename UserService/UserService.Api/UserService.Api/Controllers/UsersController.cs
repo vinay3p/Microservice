@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UserService.Api.JWTWebAuthentication;
+using UserService.Models;
 
 namespace UserService.Api.Controllers
 {

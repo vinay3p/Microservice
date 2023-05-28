@@ -2,26 +2,23 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using UserService.Models;
+using UserService.Repository;
 
 namespace UserService.Api.JWTWebAuthentication
 {
     public class JWTManagerRepository : IJWTManagerRepository
     {
-        Dictionary<string, string> UsersRecords = new Dictionary<string, string>
-    {
-        { "user1","password1"},
-        { "user2","password2"},
-        { "user3","password3"},
-    };
-
         private readonly IConfiguration iconfiguration;
-        public JWTManagerRepository(IConfiguration iconfiguration)
+        private readonly IUserRepository _userRepository;
+        public JWTManagerRepository(IConfiguration iconfiguration, IUserRepository userRepository)
         {
             this.iconfiguration = iconfiguration;
+            _userRepository = userRepository;
         }
-        public Tokens Authenticate(Users users)
+        public Tokens Authenticate(Users user)
         {
-            if (!UsersRecords.Any(x => x.Key == users.Name && x.Value == users.Password))
+            if (_userRepository.GetUser(user).Result==null)
             {
                 return null;
             }
@@ -33,7 +30,7 @@ namespace UserService.Api.JWTWebAuthentication
             {
                 Subject = new ClaimsIdentity(new Claim[]
               {
-             new Claim(ClaimTypes.Name, users.Name)
+             new Claim(ClaimTypes.Name, user.Name)
               }),
                 Expires = DateTime.UtcNow.AddMinutes(10),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)

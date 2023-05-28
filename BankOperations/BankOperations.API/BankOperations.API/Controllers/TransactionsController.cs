@@ -42,7 +42,7 @@ namespace BankOperations.API.Controllers
             var accountId = Guid.NewGuid();
             var userId = Guid.NewGuid();
 
-            await _publishEndpoint.Publish<TransactionGenerated>(Newtonsoft.Json.JsonConvert.SerializeObject(new TransactionGenerated()));
+            await _publishEndpoint.Publish<TransactionGenerated>(Newtonsoft.Json.JsonConvert.SerializeObject(transactionGenerated));
 
             //_publishEndpoint.Publish<TransactionMoitor>(new TransactionGenerated
             //{

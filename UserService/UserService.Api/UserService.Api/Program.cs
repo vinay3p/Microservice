@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UserService.Api.JWTWebAuthentication;
+using UserService.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,8 +28,9 @@ builder.Services.AddAuthentication(x =>
     };
 });
 builder.Services.AddControllers();
-
-builder.Services.AddSingleton<IJWTManagerRepository, JWTManagerRepository>();
+builder.Services.AddSingleton<DapperContext>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IJWTManagerRepository, JWTManagerRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
