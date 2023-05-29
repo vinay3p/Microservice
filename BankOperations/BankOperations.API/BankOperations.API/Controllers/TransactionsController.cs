@@ -2,6 +2,9 @@ using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using SharedLibrary;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace BankOperations.API.Controllers
 {
@@ -18,23 +21,26 @@ namespace BankOperations.API.Controllers
             _logger = logger;
         }
 
-        //public void Get()
-        //{
-        //    var accountId = Guid.NewGuid();
-        //    var userId = Guid.NewGuid();
 
-        //    //_publishEndpoint.Publish<TransactionGenerated>(Newtonsoft.Json.JsonConvert.SerializeObject(new TransactionGenerated()));
+        [HttpPost("api/transactions/getname1")]
+        public String GetName1()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var identity = User.Identity as ClaimsIdentity;
+                if (identity != null)
+                {
+                    IEnumerable<Claim> claims = identity.Claims;
+                }
+                return "Valid";
+            }
+            else
+            {
+                return "Invalid";
+            }
+        }
 
-        //    _publishEndpoint.Publish<TransactionGenerated>(new TransactionGenerated
-        //    {
-        //        AccountId = accountId,
-        //        Amount = 50000,
-        //        CreatedDate = DateTime.Now,
-        //        TransactionType = Enumeration.TransactionType.Deposit,
-        //        UserId = userId
-        //    });
-        //}
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         [Route("api/transactions/deposit")]
         public async Task<IActionResult> Deposit(TransactionGenerated transactionGenerated)
