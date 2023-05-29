@@ -18,9 +18,9 @@ namespace UserService.Api.JWTWebAuthentication
             _userRepository = userRepository;
         }
 
-        public Tokens Authenticate(Users user)
+        public Tokens Authenticate(UserLogin user)
         {
-            if (_userRepository.GetUser(user).Result==null)
+            if (_userRepository.Authenticate(user).Result==null)
             {
                 return null;
             }

@@ -2,6 +2,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -50,13 +51,43 @@ builder.Services.AddMassTransit(x =>
 
 builder.Services.AddMassTransitHostedService();
 builder.Services.AddControllers();
+builder.Services.AddSwaggerGen(opt =>
+{
+    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Bank Api", Version = "v1" });
+    opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "bearer"
+    });
+    opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
+});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseAuthentication();
 app.UseAuthorization();
-//app.UseSwaggerUi3();
+app.UseSwagger();
+app.UseSwaggerUI(swgr => {
+    swgr.SwaggerEndpoint("/swagger/v1/swagger.json", "User API V1");
+});
 app.MapControllers();
 
 app.Run();

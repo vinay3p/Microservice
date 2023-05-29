@@ -33,7 +33,7 @@ namespace UserService.Api.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("authenticate")]
-        public IActionResult Authenticate(Users usersdata)
+        public IActionResult Authenticate(UserLogin usersdata)
         {
             var token = _jWTManager.Authenticate(usersdata);
 

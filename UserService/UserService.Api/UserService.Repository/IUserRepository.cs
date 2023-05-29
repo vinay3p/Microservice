@@ -11,6 +11,6 @@ namespace UserService.Repository
     {
         public Task<IEnumerable<Users>> GetUsers();
 
-        public Task<Users> GetUser(Users user);
+        public Task<Users> Authenticate(UserLogin user);
     }
 }

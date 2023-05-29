@@ -13,7 +13,7 @@ namespace Notifications.Service.Consumers
 {
     public class TransactionNotificationConsumer : IConsumer<TransactionGenerated>
     {
-        private string connectionString = "Data Source=localhost; Initial Catalog=BankingSystem; User ID=sa; Password=gmed";
+        private string connectionString = "Data Source=localhost; Initial Catalog=NotificationService; User ID=sa; Password=gmed";
 
         public async Task Consume(ConsumeContext<TransactionGenerated> context)
         {

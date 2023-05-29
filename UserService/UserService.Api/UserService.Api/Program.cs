@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UserService.Api.JWTWebAuthentication;
 using UserService.Repository;
+using Swashbuckle;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,8 +29,8 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-
 builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJWTManagerRepository, JWTManagerRepository>();
@@ -38,7 +39,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseSwagger();
+app.UseSwaggerUI(swgr => {
+    swgr.SwaggerEndpoint("/swagger/v1/swagger.json", "User API V1");
+});
 app.MapControllers();
 
 app.Run();

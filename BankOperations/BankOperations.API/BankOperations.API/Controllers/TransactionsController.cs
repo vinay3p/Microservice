@@ -22,24 +22,23 @@ namespace BankOperations.API.Controllers
             _logger = logger;
         }
 
-
-        [HttpPost("api/transactions/getname1")]
-        public String GetName1()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var identity = User.Identity as ClaimsIdentity;
-                if (identity != null)
-                {
-                    IEnumerable<Claim> claims = identity.Claims;
-                }
-                return "Valid";
-            }
-            else
-            {
-                return "Invalid";
-            }
-        }
+        //[HttpPost("api/transactions/getname1")]
+        //public String GetName1()
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        var identity = User.Identity as ClaimsIdentity;
+        //        if (identity != null)
+        //        {
+        //            IEnumerable<Claim> claims = identity.Claims;
+        //        }
+        //        return "Valid";
+        //    }
+        //    else
+        //    {
+        //        return "Invalid";
+        //    }
+        //}
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]

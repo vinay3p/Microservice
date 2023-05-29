@@ -23,12 +23,12 @@ namespace UserService.Repository
             }
         }
 
-        public async Task<Users> GetUser(Users user)
+        public async Task<Users> Authenticate(UserLogin user)
         {
             var query = "SELECT * FROM [user] where userId = @userId and password = @password";
             using (var connection = _context.CreateConnection())
             {
-                var users = await connection.QuerySingleOrDefaultAsync<Users>(query, new {userid =user.UserId, password=user.Password });
+                var users = await connection.QuerySingleOrDefaultAsync<Users>(query, new {userid =user.UserName, password=user.Password });
                 return users;
             }
         }
