@@ -1,4 +1,5 @@
 using MassTransit;
+using Notifications;
 using Notifications.Service.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,9 @@ var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
 
 });
 
+builder.Services.AddControllers();
+builder.Services.AddSingleton<DapperContext>();
+builder.Services.AddScoped<TransactionNotificationConsumer, TransactionNotificationConsumer>();
 await busControl.StartAsync(new CancellationToken());
 
 var app = builder.Build();

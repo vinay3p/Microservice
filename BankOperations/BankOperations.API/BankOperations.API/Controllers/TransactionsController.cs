@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using BankOperations.Repository;
 
 namespace BankOperations.API.Controllers
 {
@@ -45,19 +46,37 @@ namespace BankOperations.API.Controllers
         [Route("api/transactions/deposit")]
         public async Task<IActionResult> Deposit(TransactionGenerated transactionGenerated)
         {
-            var accountId = Guid.NewGuid();
-            var userId = Guid.NewGuid();
+            transactionGenerated.CreatedDate = DateTime.Now;
+            new AccountRepository().Deposit(transactionGenerated);
 
-            await _publishEndpoint.Publish<TransactionGenerated>(Newtonsoft.Json.JsonConvert.SerializeObject(transactionGenerated));
+            await _publishEndpoint.Publish<TransactionGenerated>(transactionGenerated);
 
-            //_publishEndpoint.Publish<TransactionMoitor>(new TransactionGenerated
-            //{
-            //    AccountId = accountId,
-            //    Amount = 50000,
-            //    CreatedDate = DateTime.Now,
-            //    TransactionType = Enumeration.TransactionType.Deposit,
-            //    UserId = userId
-            //});
+            return Ok();
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost]
+        [Route("api/transactions/withdrawl")]
+        public async Task<IActionResult> Withdrawl(TransactionGenerated transactionGenerated)
+        {
+            transactionGenerated.CreatedDate = DateTime.Now;
+            new AccountRepository().Withdrawl(transactionGenerated);
+
+            await _publishEndpoint.Publish<TransactionGenerated>(transactionGenerated);
+
+            return Ok();
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost]
+        [Route("api/transactions/transfer")]
+        public async Task<IActionResult> Transfer(TransactionGenerated transactionGenerated)
+        {
+            transactionGenerated.CreatedDate = DateTime.Now;
+            new AccountRepository().Transfer(transactionGenerated);
+
+            await _publishEndpoint.Publish<TransactionGenerated>(transactionGenerated);
+
             return Ok();
         }
     }
