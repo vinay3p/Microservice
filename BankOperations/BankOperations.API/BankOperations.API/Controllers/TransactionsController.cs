@@ -47,6 +47,7 @@ namespace BankOperations.API.Controllers
         public async Task<IActionResult> Deposit(TransactionGenerated transactionGenerated)
         {
             transactionGenerated.CreatedDate = DateTime.Now;
+            transactionGenerated.TransactionType = Enumeration.TransactionType.Deposit;
             new AccountRepository().Deposit(transactionGenerated);
 
             await _publishEndpoint.Publish<TransactionGenerated>(transactionGenerated);
@@ -60,6 +61,7 @@ namespace BankOperations.API.Controllers
         public async Task<IActionResult> Withdrawl(TransactionGenerated transactionGenerated)
         {
             transactionGenerated.CreatedDate = DateTime.Now;
+            transactionGenerated.TransactionType = Enumeration.TransactionType.Withdrawl;
             new AccountRepository().Withdrawl(transactionGenerated);
 
             await _publishEndpoint.Publish<TransactionGenerated>(transactionGenerated);
@@ -73,6 +75,7 @@ namespace BankOperations.API.Controllers
         public async Task<IActionResult> Transfer(TransactionGenerated transactionGenerated)
         {
             transactionGenerated.CreatedDate = DateTime.Now;
+            transactionGenerated.TransactionType = Enumeration.TransactionType.Transfer;
             new AccountRepository().Transfer(transactionGenerated);
 
             await _publishEndpoint.Publish<TransactionGenerated>(transactionGenerated);
