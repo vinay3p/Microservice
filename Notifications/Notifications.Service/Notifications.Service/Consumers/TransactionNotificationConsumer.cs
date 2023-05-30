@@ -14,6 +14,7 @@ namespace Notifications.Service.Consumers
     public class TransactionNotificationConsumer : IConsumer<TransactionGenerated>
     {
         private string connectionString = "Data Source=localhost; Initial Catalog=NotificationService; User ID=sa; Password=gmed";
+        private readonly ILogger<TransactionNotificationConsumer> _logger;
 
         public async Task Consume(ConsumeContext<TransactionGenerated> context)
         {
@@ -21,18 +22,18 @@ namespace Notifications.Service.Consumers
             {
                 var spName = "NotificationsInsert";
                 connection.Open();
-                connection.Execute(spName,
-                                      new
-                                      {
-                                          CustomerId = context.Message.CustomerId,
-                                          Message = GenerateNotificationMessageText(context),
-                                          NotificationDate = context.Message.CreatedDate = DateTime.Now,
-                                          AccountNumber = context.Message.AccountNumber,
-                                          TransactionTypeID = context.Message.TransactionType,
-                                          Amount = context.Message.Amount,
-                                          TransferToAccountNumber = context.Message.TransferToAccountNumber
-                                      },
-                                      commandType: CommandType.StoredProcedure);
+                await connection.ExecuteAsync(spName,
+                                       new
+                                       {
+                                           CustomerId = context.Message.CustomerId,
+                                           Message = GenerateNotificationMessageText(context),
+                                           NotificationDate = context.Message.CreatedDate = DateTime.Now,
+                                           AccountNumber = context.Message.AccountNumber,
+                                           TransactionTypeID = context.Message.TransactionType,
+                                           Amount = context.Message.Amount,
+                                           TransferToAccountNumber = context.Message.TransferToAccountNumber
+                                       },
+                                       commandType: CommandType.StoredProcedure);
             }
         }
 

@@ -4,6 +4,7 @@ using System.Text;
 using UserService.Api.JWTWebAuthentication;
 using UserService.Repository;
 using Swashbuckle;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,14 @@ builder.Services.AddAuthentication(x =>
         IssuerSigningKey = new SymmetricSecurityKey(Key)
     };
 });
+
+var logger = new LoggerConfiguration()
+  .ReadFrom.Configuration(builder.Configuration)
+  .Enrich.FromLogContext()
+  .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();

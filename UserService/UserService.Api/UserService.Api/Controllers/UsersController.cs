@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.SqlServer.Server;
 using UserService.Api.JWTWebAuthentication;
 using UserService.Models;
 
@@ -7,14 +8,16 @@ namespace UserService.Api.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    [ApiController] 
+    [ApiController]
     public class UsersController : Controller
     {
         private readonly IJWTManagerRepository _jWTManager;
+        private readonly ILogger<UsersController> _logger;
 
-        public UsersController(IJWTManagerRepository jWTManager)
+        public UsersController(IJWTManagerRepository jWTManager, ILogger<UsersController> logger)
         {
             this._jWTManager = jWTManager;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -41,7 +44,7 @@ namespace UserService.Api.Controllers
             {
                 return Unauthorized();
             }
-
+            _logger.LogInformation($"Token generated for user {usersdata.UserName}");
             return Ok(token);
         }
     }

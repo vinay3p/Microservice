@@ -30,7 +30,7 @@ namespace BankOperations.API.Controllers
             transactionGenerated.CreatedDate = DateTime.Now;
             transactionGenerated.TransactionType = Enumeration.TransactionType.Deposit;
             new AccountRepository().Deposit(transactionGenerated);
-
+            _logger.LogInformation($"Deposit type Transaction generated against the account {transactionGenerated.AccountNumber}");
             await _publishEndpoint.Publish<TransactionGenerated>(transactionGenerated);
 
             return Ok();
@@ -44,6 +44,7 @@ namespace BankOperations.API.Controllers
             transactionGenerated.CreatedDate = DateTime.Now;
             transactionGenerated.TransactionType = Enumeration.TransactionType.Withdrawl;
             new AccountRepository().Withdrawl(transactionGenerated);
+            _logger.LogInformation($"A withdrawl type Transaction generated against the account {transactionGenerated.AccountNumber}");
 
             await _publishEndpoint.Publish<TransactionGenerated>(transactionGenerated);
 
@@ -61,6 +62,7 @@ namespace BankOperations.API.Controllers
 
             await _publishEndpoint.Publish<TransactionGenerated>(transactionGenerated);
 
+            _logger.LogInformation($"Amount Transferred from the account {transactionGenerated.AccountNumber} to the account {transactionGenerated.TransferToAccountNumber}");
             return Ok();
         }
     }

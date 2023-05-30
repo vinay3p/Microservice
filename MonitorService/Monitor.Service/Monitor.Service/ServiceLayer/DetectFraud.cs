@@ -14,7 +14,8 @@ namespace Monitor.Service.ServiceLayer
 {
     public class DetectFraud
     {
-        private string connectionString = "Server=.;Database=MonitorService;Trusted_Connection=True;TrustServerCertificate=True";
+        private string connectionString = "Data Source=localhost; Initial Catalog=MonitorService; User ID=sa; Password=gmed";
+        
         public async Task ReportFraud(TransactionGenerated transaction) {
             try
             {

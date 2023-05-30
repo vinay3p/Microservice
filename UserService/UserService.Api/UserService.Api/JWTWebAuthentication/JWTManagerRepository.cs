@@ -26,8 +26,6 @@ namespace UserService.Api.JWTWebAuthentication
                 return null;
             }
 
-            //return new Tokens { Token = tokenHandler.WriteToken(token) };
-
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(iconfiguration["JWT:Key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
