@@ -8,6 +8,8 @@ using Dapper;
 using System.Linq.Expressions;
 using System.Text;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
+using Serilog;
 
 namespace Notifications.Service.Consumers
 {
@@ -15,9 +17,13 @@ namespace Notifications.Service.Consumers
     {
         private string connectionString = "Data Source=localhost; Initial Catalog=NotificationService; User ID=sa; Password=gmed";
         private readonly ILogger<TransactionNotificationConsumer> _logger;
+        Serilog.Core.Logger _seriLogger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.File("d:\\log.txt", rollingInterval: RollingInterval.Day, fileSizeLimitBytes: null, retainedFileCountLimit: null, shared: true, flushToDiskInterval: TimeSpan.FromSeconds(1)).CreateLogger();
 
         public async Task Consume(ConsumeContext<TransactionGenerated> context)
         {
+            _seriLogger.Information("\r\n" + DateTime.Now + " - Consume Message Execution started");
+            _seriLogger.Information("\r\n" + DateTime.Now + " - Parameters - " + JsonConvert.SerializeObject(context.Message));
+
             using (var connection = new SqlConnection(connectionString))
             {
                 var spName = "NotificationsInsert";
@@ -35,6 +41,7 @@ namespace Notifications.Service.Consumers
                                        },
                                        commandType: CommandType.StoredProcedure);
             }
+            _seriLogger.Information("\r\n" + DateTime.Now + " - Consume Message Execution End");
         }
 
         private string GenerateNotificationMessageText(ConsumeContext<TransactionGenerated> context)
