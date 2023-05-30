@@ -16,21 +16,28 @@ namespace Monitor.Service.ServiceLayer
     {
         private string connectionString = "Server=.;Database=MonitorService;Trusted_Connection=True;TrustServerCertificate=True";
         public async Task ReportFraud(TransactionGenerated transaction) {
-            using (var connection = new SqlConnection(connectionString))
+            try
             {
-                var spName = "FraudInsert";
-                connection.Open();
-                await connection.ExecuteAsync(spName,
-                                      new
-                                      {
-                                          AccountNumber = transaction.AccountNumber,
-                                          TransactionTypeID = transaction.TransactionType,
-                                          TransferToAccountNumber = transaction.TransferToAccountNumber,
-                                          Amount = transaction.Amount,
-                                          Message = GenerateMessageText(transaction),
-                                          CreatedDate = transaction.CreatedDate = DateTime.Now,
-                                      },
-                                      commandType: CommandType.StoredProcedure);
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    var spName = "FraudInsert";
+                    connection.Open();
+                    await connection.ExecuteAsync(spName,
+                                          new
+                                          {
+                                              AccountNumber = transaction.AccountNumber,
+                                              TransactionTypeID = transaction.TransactionType,
+                                              TransferToAccountNumber = transaction.TransferToAccountNumber,
+                                              Amount = transaction.Amount,
+                                              Message = GenerateMessageText(transaction),
+                                              CreatedDate = transaction.CreatedDate = DateTime.Now,
+                                          },
+                                          commandType: CommandType.StoredProcedure);
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
         }
 

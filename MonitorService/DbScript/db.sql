@@ -119,7 +119,7 @@ GO
 USE [MonitorService]
 GO
 
-/****** Object:  Table [dbo].[Frauds]    Script Date: 29-05-2023 21:08:23 ******/
+/****** Object:  Table [dbo].[Frauds]    Script Date: 29-05-2023 23:02:19 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -132,11 +132,7 @@ CREATE TABLE [dbo].[Frauds](
 	[TransferToAccountNumber] [varchar](50) NULL,
 	[Amount] [decimal](18, 0) NULL,
 	[Message] [varchar](max) NULL,
-	[CreatedOn] [datetime] NULL,
- CONSTRAINT [PK_Frauds] PRIMARY KEY CLUSTERED 
-(
-	[AccountNumber] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+	[CreatedOn] [datetime] NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
