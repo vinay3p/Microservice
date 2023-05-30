@@ -17,9 +17,6 @@ namespace Notifications.Service.Consumers
 
         public async Task Consume(ConsumeContext<TransactionGenerated> context)
         {
-            var jsonMessage = JsonConvert.SerializeObject(context.Message);
-            Console.WriteLine($"Transaction Generated message: {jsonMessage}");
-
             using (var connection = new SqlConnection(connectionString))
             {
                 var spName = "NotificationsInsert";
@@ -31,7 +28,7 @@ namespace Notifications.Service.Consumers
                                           Message = GenerateNotificationMessageText(context),
                                           NotificationDate = context.Message.CreatedDate = DateTime.Now,
                                           AccountNumber = context.Message.AccountNumber,
-                                          TransactionTypeID = TransactionType.Deposit,
+                                          TransactionTypeID = context.Message.TransactionType,
                                           Amount = context.Message.Amount,
                                           TransferToAccountNumber = context.Message.TransferToAccountNumber
                                       },

@@ -2,6 +2,11 @@
 using Monitor.Service.ServiceLayer;
 using Newtonsoft.Json;
 using SharedLibrary;
+using static SharedLibrary.Enumeration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Text;
+using Dapper;
 
 namespace Monitor.Service.Consumers
 {
