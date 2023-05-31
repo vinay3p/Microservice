@@ -82,6 +82,12 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+CREATE TABLE [dbo].[User](
+	[Id] [uniqueidentifier] NULL,
+	[Name] [varchar](50) NULL,
+	[UserId] [varchar](50) NULL
+) ON [PRIMARY]
+GO
 INSERT [dbo].[Accounts] ([AccountNumber], [CustomerID], [AccountTypeID], [Balance]) VALUES (N'001111111', N'6ac3f94f-b7cd-4334-b152-2094b5779118', 1, CAST(0.00 AS Decimal(18, 2)))
 GO
 INSERT [dbo].[Accounts] ([AccountNumber], [CustomerID], [AccountTypeID], [Balance]) VALUES (N'001122334', N'99f9edc3-7f79-4e6c-8dde-2eefd177653f', 1, CAST(1000.00 AS Decimal(18, 2)))
@@ -207,7 +213,24 @@ BEGIN
 	WHERE CustomerID = @CustomerId
 
 END
+GO
 
+/****** Object:  StoredProcedure [dbo].[UserInsert]    Script Date: 5/31/2023 6:13:51 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create PROCEDURE [dbo].[UserInsert]
+(
+	@Id uniqueidentifier,
+	@UserId varchar(50),
+	@Name varchar(50)
+)
+AS 
+BEGIN
 
+	INSERT INTO [User] (Id, UserId, [Name])
+	VALUES (@Id, @UserId, @Name)
 
+END
 GO
