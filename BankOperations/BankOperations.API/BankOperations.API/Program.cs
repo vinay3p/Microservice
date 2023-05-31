@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Linq;
+using Notifications.Service.Consumers;
 using Serilog;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -47,7 +48,11 @@ builder.Services.AddAuthentication(x =>
 
 builder.Services.AddMassTransit(x =>
 {
-    x.UsingRabbitMq();
+    x.AddConsumer<UserSyncConsumer>();
+    x.UsingRabbitMq((ctx, cfg) =>
+    {
+        cfg.ConfigureEndpoints(ctx);
+    });
 });
 
 builder.Services.AddMassTransitHostedService();

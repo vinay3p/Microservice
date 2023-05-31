@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit" Version="7.3.1" />
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="7.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.5" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
@@ -17,6 +20,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UserService.Repository\UserService.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SharedLibrary">
+      <HintPath>..\..\..\SharedResources\SharedLibrary\SharedLibrary\bin\Debug\net7.0\SharedLibrary.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

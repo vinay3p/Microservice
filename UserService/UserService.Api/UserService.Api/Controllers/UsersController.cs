@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SqlServer.Server;
+using SharedLibrary;
 using UserService.Api.JWTWebAuthentication;
 using UserService.Models;
+using UserService.Repository;
+using MassTransit;
 
 namespace UserService.Api.Controllers
 {
@@ -13,11 +17,13 @@ namespace UserService.Api.Controllers
     {
         private readonly IJWTManagerRepository _jWTManager;
         private readonly ILogger<UsersController> _logger;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public UsersController(IJWTManagerRepository jWTManager, ILogger<UsersController> logger)
+        public UsersController(IJWTManagerRepository jWTManager, ILogger<UsersController> logger, IPublishEndpoint publishEndpoint)
         {
             this._jWTManager = jWTManager;
             _logger = logger;
+            _publishEndpoint = publishEndpoint;
         }
 
         [HttpGet]
@@ -47,5 +53,18 @@ namespace UserService.Api.Controllers
             _logger.LogInformation($"Token generated for user {usersdata.UserName}");
             return Ok(token);
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("CreateUser")]
+        public async Task<IActionResult> CreateUser(User user)
+        {
+            new UserRepository().CreateUser(user);
+            _logger.LogInformation($"User {0} with ID {1} synced between User and Banking Service", user.Name, user.UserId);
+            await _publishEndpoint.Publish<User>(user);
+
+            return Ok();
+        }
+
     }
 }

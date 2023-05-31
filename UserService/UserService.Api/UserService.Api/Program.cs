@@ -5,6 +5,7 @@ using UserService.Api.JWTWebAuthentication;
 using UserService.Repository;
 using Swashbuckle;
 using Serilog;
+using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,16 @@ var logger = new LoggerConfiguration()
 
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
+
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((ctx, cfg) =>
+    {
+        cfg.ConfigureEndpoints(ctx);
+    });
+});
+
+builder.Services.AddMassTransitHostedService();
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
