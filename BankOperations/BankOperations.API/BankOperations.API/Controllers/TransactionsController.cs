@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using BankOperations.Repository;
+using Polly;
+using Polly.Contrib.WaitAndRetry;
 
 namespace BankOperations.API.Controllers
 {
@@ -28,13 +30,23 @@ namespace BankOperations.API.Controllers
         public async Task<IActionResult> Deposit(TransactionGenerated transactionGenerated)
         {
             transactionGenerated.CreatedDate = DateTime.Now;
+            transactionGenerated.CustomerId = new Guid(User.Claims.ToList().Where(x => x.Type == "id").FirstOrDefault().Value);
             transactionGenerated.TransactionType = Enumeration.TransactionType.Deposit;
             new AccountRepository().Deposit(transactionGenerated);
             _logger.LogInformation($"Deposit type Transaction generated against the account {transactionGenerated.AccountNumber}");
+
+            //await Policy
+            //    .Handle<Exception>()
+            //    .WaitAndRetryAsync(Backoff.DecorrelatedJitterBackoffV2(
+            //                       medianFirstRetryDelay: TimeSpan.FromSeconds(1),
+            //                       retryCount: 5))
+            //    .ExecuteAsync(async () => publishtoqueue(transactionGenerated));
+            var identities = User.Identities;
             await _publishEndpoint.Publish<TransactionGenerated>(transactionGenerated);
 
             return Ok();
         }
+
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
@@ -43,6 +55,7 @@ namespace BankOperations.API.Controllers
         {
             transactionGenerated.CreatedDate = DateTime.Now;
             transactionGenerated.TransactionType = Enumeration.TransactionType.Withdrawl;
+            transactionGenerated.CustomerId = new Guid(User.Claims.ToList().Where(x => x.Type == "id").FirstOrDefault().Value);
             new AccountRepository().Withdrawl(transactionGenerated);
             _logger.LogInformation($"A withdrawl type Transaction generated against the account {transactionGenerated.AccountNumber}");
 
@@ -58,6 +71,7 @@ namespace BankOperations.API.Controllers
         {
             transactionGenerated.CreatedDate = DateTime.Now;
             transactionGenerated.TransactionType = Enumeration.TransactionType.Transfer;
+            transactionGenerated.CustomerId = new Guid(User.Claims.ToList().Where(x => x.Type == "id").FirstOrDefault().Value);
             new AccountRepository().Transfer(transactionGenerated);
 
             await _publishEndpoint.Publish<TransactionGenerated>(transactionGenerated);
