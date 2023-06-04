@@ -23,10 +23,10 @@
     <ProjectReference Include="..\UserService.Repository\UserService.Repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <Reference Include="SharedLibrary">
       <HintPath>..\..\..\SharedResources\SharedLibrary\SharedLibrary\bin\Debug\net7.0\SharedLibrary.dll</HintPath>
     </Reference>
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>
