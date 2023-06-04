@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -16,10 +16,10 @@
     <ProjectReference Include="..\UserService.Models\UserService.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <Reference Include="SharedLibrary">
       <HintPath>..\..\..\SharedResources\SharedLibrary\SharedLibrary\bin\Debug\net7.0\SharedLibrary.dll</HintPath>
     </Reference>
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>

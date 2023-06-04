@@ -5,9 +5,9 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Api", "UserService.Api\UserService.Api.csproj", "{0B4BF796-86BD-4624-8C8C-D8EA565348C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Repository", "UserService.Repository\UserService.Repository.csproj", "{BD7CED26-721F-4F00-BA1E-10C4DD609CF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Repository", "UserService.Repository\UserService.Repository.csproj", "{BD7CED26-721F-4F00-BA1E-10C4DD609CF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Models", "UserService.Models\UserService.Models.csproj", "{8BE95C6E-ECA5-406B-B716-1D3A63FCA463}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Models", "UserService.Models\UserService.Models.csproj", "{8BE95C6E-ECA5-406B-B716-1D3A63FCA463}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,8 @@
-﻿using System.Data;
-using System.Data.SqlClient;
+﻿using BankOperations.Contracts;
 using Dapper;
-using SharedLibrary;
-using static SharedLibrary.Enumeration;
+using System.Data;
+using System.Data.SqlClient;
+using static BankOperations.Contracts.Enumeration;
 
 namespace BankOperations.Repository
 {

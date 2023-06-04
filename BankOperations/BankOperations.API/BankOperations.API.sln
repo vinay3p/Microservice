@@ -5,7 +5,9 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankOperations.API", "BankOperations.API\BankOperations.API.csproj", "{FD43381A-3355-4DBD-B1B1-4F8AA622547A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankOperations.Repository", "BankOperations.Repository\BankOperations.Repository.csproj", "{FF827079-1D3B-4208-A3B9-58AE0E87BB17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankOperations.Repository", "BankOperations.Repository\BankOperations.Repository.csproj", "{FF827079-1D3B-4208-A3B9-58AE0E87BB17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankOperations.Models", "BankOperations.Models\BankOperations.Models.csproj", "{A9F7554C-BC6F-4AAD-8478-C8399BB00092}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{FF827079-1D3B-4208-A3B9-58AE0E87BB17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF827079-1D3B-4208-A3B9-58AE0E87BB17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF827079-1D3B-4208-A3B9-58AE0E87BB17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9F7554C-BC6F-4AAD-8478-C8399BB00092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9F7554C-BC6F-4AAD-8478-C8399BB00092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9F7554C-BC6F-4AAD-8478-C8399BB00092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9F7554C-BC6F-4AAD-8478-C8399BB00092}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

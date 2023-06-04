@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BankOperations.Models\BankOperations.Models.csproj" />
     <ProjectReference Include="..\BankOperations.Repository\BankOperations.Repository.csproj" />
   </ItemGroup>
 

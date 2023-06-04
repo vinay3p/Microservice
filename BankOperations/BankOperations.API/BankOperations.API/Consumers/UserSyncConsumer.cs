@@ -1,21 +1,12 @@
-﻿using MassTransit;
+﻿//using BankOperations.Models.Contracts;
+using Dapper;
+using MassTransit;
 using Newtonsoft.Json;
-using SharedLibrary;
-using static SharedLibrary.Enumeration;
+using Serilog;
 using System.Data;
 using System.Data.SqlClient;
-using Dapper;
-using System.Linq.Expressions;
-using System.Text;
-using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
-using Serilog;
-using System.ComponentModel.DataAnnotations;
-
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.SqlServer.Server;
+//using SharedLibrary;
+using BankOperations.Contracts;
 
 namespace Notifications.Service.Consumers
 {

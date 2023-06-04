@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.SqlServer.Server;
-using SharedLibrary;
 using UserService.Api.JWTWebAuthentication;
 using UserService.Models;
+using BankOperations.Contracts;
+//using SharedLibrary;
 using UserService.Repository;
-using MassTransit;
 
 namespace UserService.Api.Controllers
 {
@@ -59,7 +58,7 @@ namespace UserService.Api.Controllers
         [Route("CreateUser")]
         public async Task<IActionResult> CreateUser(User user)
         {
-            new UserRepository().CreateUser(user);
+            //new UserRepository().CreateUser(user);
             _logger.LogInformation($"User {0} with ID {1} synced between User and Banking Service", user.Name, user.UserId);
             await _publishEndpoint.Publish<User>(user);
 

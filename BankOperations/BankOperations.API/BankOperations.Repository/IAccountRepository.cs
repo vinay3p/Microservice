@@ -1,4 +1,4 @@
-﻿using SharedLibrary;
+﻿using BankOperations.Contracts;
 
 namespace BankOperations.Repository
 {

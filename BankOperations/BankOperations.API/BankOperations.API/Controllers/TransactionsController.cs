@@ -1,13 +1,9 @@
-using MassTransit;
-using Microsoft.AspNetCore.Mvc;
-using SharedLibrary;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using BankOperations.Contracts;
 using BankOperations.Repository;
-using Polly;
-using Polly.Contrib.WaitAndRetry;
+using MassTransit;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BankOperations.API.Controllers
 {
