@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: userapi-deployment
+  name: userapi-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: userapi-app
+  template:
+    metadata:
+      labels:
+        app: userapi-app
+    spec:
+      containers:
+      - name: userapi-container
+        image: userapi:v2
+        imagePullPolicy: Never
+        ports:
+          - containerPort: 8080

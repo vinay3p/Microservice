@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  annotations:
+           service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"  
+  name: userapi-service
+  labels:
+        name: userapi-service
+spec:
+  type: NodePort
+  selector:
+    app: userapi-app
+  ports:
+    - port: 80
+      nodePort: 30077
+      name: http
+    - port: 443
+      nodePort: 30560
+      name: https

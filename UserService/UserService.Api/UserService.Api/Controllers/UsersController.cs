@@ -58,7 +58,7 @@ namespace UserService.Api.Controllers
         [Route("CreateUser")]
         public async Task<IActionResult> CreateUser(User user)
         {
-            //new UserRepository().CreateUser(user);
+            new UserRepository().CreateUser(user);
             _logger.LogInformation($"User {0} with ID {1} synced between User and Banking Service", user.Name, user.UserId);
             await _publishEndpoint.Publish<User>(user);
 
