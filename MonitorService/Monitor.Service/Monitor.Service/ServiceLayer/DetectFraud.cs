@@ -6,8 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MassTransit;
-using SharedLibrary;
-using static SharedLibrary.Enumeration;
+using BankOperations.Contracts;
+using static BankOperations.Contracts.Enumeration;
 using Dapper;
 
 namespace Monitor.Service.ServiceLayer

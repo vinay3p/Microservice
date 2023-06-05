@@ -20,10 +20,10 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="SharedLibrary">
-      <HintPath>..\..\..\SharedResources\SharedLibrary\SharedLibrary\bin\Debug\net7.0\SharedLibrary.dll</HintPath>
+  <!--<ItemGroup>
+    <Reference Include="BankOperations.Contracts">
+      <HintPath>..\..\..\SharedResources\BankOperations.Contracts\BankOperations.Contracts\bin\Debug\net7.0\BankOperations.Contracts.dll</HintPath>
     </Reference>
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>

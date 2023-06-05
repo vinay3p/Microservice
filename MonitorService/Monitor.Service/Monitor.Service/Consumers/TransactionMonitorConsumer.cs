@@ -1,8 +1,8 @@
 ﻿using MassTransit;
 using Monitor.Service.ServiceLayer;
 using Newtonsoft.Json;
-using SharedLibrary;
-using static SharedLibrary.Enumeration;
+using BankOperations.Contracts;
+using static BankOperations.Contracts.Enumeration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
