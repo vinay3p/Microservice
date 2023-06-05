@@ -39,9 +39,7 @@ namespace Notifications.Service.Consumers
                     await connection.ExecuteAsync(spName,
                                            new
                                            {
-                                               Id = context.Message.Id,
-                                               UserId = context.Message.UserId,
-                                               Name = context.Message.Name
+                                               Id = context.Message.Id
                                            },
                                            commandType: CommandType.StoredProcedure);
                 }

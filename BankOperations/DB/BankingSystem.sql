@@ -83,9 +83,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 GO
 CREATE TABLE [dbo].[User](
-	[Id] [uniqueidentifier] NULL,
-	[Name] [varchar](50) NULL,
-	[UserId] [varchar](50) NULL
+	[Id] [uniqueidentifier] NULL
 ) ON [PRIMARY]
 GO
 INSERT [dbo].[Accounts] ([AccountNumber], [CustomerID], [AccountTypeID], [Balance]) VALUES (N'001111111', N'6ac3f94f-b7cd-4334-b152-2094b5779118', 1, CAST(0.00 AS Decimal(18, 2)))
@@ -222,15 +220,13 @@ SET QUOTED_IDENTIFIER ON
 GO
 Create PROCEDURE [dbo].[UserInsert]
 (
-	@Id uniqueidentifier,
-	@UserId varchar(50),
-	@Name varchar(50)
+	@Id uniqueidentifier
 )
 AS 
 BEGIN
 
-	INSERT INTO [User] (Id, UserId, [Name])
-	VALUES (@Id, @UserId, @Name)
+	INSERT INTO [User] (Id)
+	VALUES (@Id)
 
 END
 GO
